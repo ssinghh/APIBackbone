@@ -57,14 +57,22 @@ Refer freeCodeCamp.org for needed help
     ```
 
 4. Run the Docker Image from ECR
-   Once the image is pushed to ECR, you can run it from an EC2 instance
-   Pull the image from ECR:
+   Once the image is pushed to ECR, you can run it from an EC2 instance(Launch EC2 with custom Inbound Security Group 8080 port)
+   Login to ECR
+   ```shell
+   aws ecr get-login-password --region <your-region> | docker login --username AWS --password-stdin <aws-account-id>.dkr.ecr.<your-region>.amazonaws.com
+   ```
+    Pull the image from ECR:
    ```shell
    docker pull <aws-account-id>.dkr.ecr.<your-region>.amazonaws.com/api-backbone-app-repo:latest
     ```
-   Run the image:
+   Run the image:  This will run the Spring Boot application inside a Docker container and expose it on port 8080.
    ```shell
    docker run -p 8080:8080 <aws-account-id>.dkr.ecr.<your-region>.amazonaws.com/api-backbone-app-repo:latest
     ```
-   This will run the Spring Boot application inside a Docker container and expose it on port 8080.
+  
+5. Test API on browser
+
+    http://<ec2-public-ip>:8080/api/v1/movies
+
 
